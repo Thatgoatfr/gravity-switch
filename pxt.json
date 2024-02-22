@@ -1,5 +1,5 @@
 {
-    "name": "gravity switch",
+    "name": "gravity switch - Copy",
     "description": "",
     "dependencies": {
         "device": "*",
@@ -9,7 +9,9 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "assets.json"
+        "assets.json",
+        "tilemap.g.jres",
+        "tilemap.g.ts"
     ],
     "testFiles": [
         "test.ts"
