@@ -4,6 +4,11 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     mySprite.vy = -125
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
+    game.splash("TRASHCAN")
+    pause(100)
+    game.gameOver(false)
+})
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
     ......................................
@@ -14,21 +19,21 @@ mySprite = sprites.create(img`
     ......................................
     ......................................
     ......................................
-    ....2222222................8888888....
-    ..22fffffff22............88fffffff88..
-    .2fffffffffff2.........18fffffffffff8.
-    .2ff1111111ff21.......118ff1111111ff8.
-    2ff11fffff11ff21...11118ff11fffff11ff8
-    2ff1fffffff1ff211111fff8ff1fffffff1ff8
-    2ff1fff2fff1ff2ffffffff8ff1fff8fff1ff8
-    2ff1ff222ff1ff2fff111ff8ff1ff888ff1ff8
-    2ff1fff2fff1ff2ffffffff8ff1fff8fff1ff8
-    2ff1fffffff1ff211111fff8ff1fffffff1ff8
-    2ff11fffff11ff21...11118ff11fffff11ff8
-    .2ff1111111ff21.......118ff1111111ff8.
-    .2fffffffffff2.........18fffffffffff8.
-    ..22fffffff22............88fffffff88..
-    ....2222222................8888888....
+    ....8888888................8888888....
+    ..88fffffff88............88fffffff88..
+    .8fffffffffff8.........18fffffffffff8.
+    .8ff1111111ff81.......118ff1111111ff8.
+    8ff11fffff11ff81...11118ff11fffff11ff8
+    8ff1fffffff1ff811111fff8ff1fffffff1ff8
+    8ff1fff8fff1ff8ffffffff8ff1fff8fff1ff8
+    8ff1ff888ff1ff8fff111ff8ff1ff888ff1ff8
+    8ff1fff8fff1ff8ffffffff8ff1fff8fff1ff8
+    8ff1fffffff1ff811111fff8ff1fffffff1ff8
+    8ff11fffff11ff81...11118ff11fffff11ff8
+    .8ff1111111ff81.......118ff1111111ff8.
+    .8fffffffffff8.........18fffffffffff8.
+    ..88fffffff88............88fffffff88..
+    ....8888888................8888888....
     ......................................
     ......................................
     ......................................
@@ -326,6 +331,6 @@ scroller.setLayerImage(scroller.BackgroundLayer.Layer2, img`
 scroller.scrollBackgroundWithSpeed(-5, 0, scroller.BackgroundLayer.Layer0)
 scroller.scrollBackgroundWithSpeed(-10, 0, scroller.BackgroundLayer.Layer1)
 scroller.scrollBackgroundWithSpeed(-20, 0, scroller.BackgroundLayer.Layer2)
-game.onUpdateInterval(500, function () {
+game.onUpdateInterval(2000, function () {
 	
 })
