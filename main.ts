@@ -466,8 +466,5 @@ scroller.setLayerImage(scroller.BackgroundLayer.Layer2, img`
 scroller.scrollBackgroundWithSpeed(-5, 0, scroller.BackgroundLayer.Layer0)
 scroller.scrollBackgroundWithSpeed(-10, 0, scroller.BackgroundLayer.Layer1)
 scroller.scrollBackgroundWithSpeed(-20, 0, scroller.BackgroundLayer.Layer2)
-tiles.setCurrentTilemap(tilemap`level2`)
+tiles.setCurrentTilemap(tilemap`level3`)
 scene.cameraFollowSprite(mySprite)
-game.onUpdateInterval(2000, function () {
-    mySprite.vx = 100
-})
