@@ -1,5 +1,5 @@
 {
-    "name": "gravity switch Real",
+    "name": "gravity switch",
     "description": "",
     "dependencies": {
         "device": "*",
@@ -9,9 +9,7 @@
         "main.blocks",
         "main.ts",
         "README.md",
-        "assets.json",
-        "tilemap.g.jres",
-        "tilemap.g.ts"
+        "assets.json"
     ],
     "testFiles": [
         "test.ts"
