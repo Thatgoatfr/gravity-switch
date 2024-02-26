@@ -1,20 +1,80 @@
 namespace SpriteKind {
     export const deathBlock = SpriteKind.create()
 }
+scene.onOverlapTile(SpriteKind.Player, img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . c 5 c . . . . . . 
+    . . . . . . c d 5 d c . . . . . 
+    . . . b c c d 5 5 5 d c c b . . 
+    . . b d d 5 5 5 5 5 5 5 d d b . 
+    . . . b c c d 5 5 5 d c c b . . 
+    . . . . . . c d 5 d c . . . . . 
+    . . . . . . . c 5 c . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, function (sprite, location) {
+    info.changeScoreBy(1)
+})
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
+    game.gameOver(false)
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.ay = 400
-    pause(1000)
+    if (!(scoreFR == 0)) {
+        mySprite.ay = 400
+        mySprite.setVelocity(75, 0)
+        pause(1000)
+    }
 })
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.ay = -400
-    pause(1000)
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
+    game.gameOver(false)
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`tile2`, function (sprite, location) {
-    mySprite.setVelocity(65, 0)
-})
-function gravitySwitch (mySprite: Sprite) {
-	
+function spawnFood (list: any[]) {
+    for (let index = 0; index < 1e+26; index++) {
+        if (scoreFR == 0 || scoreFR != 0) {
+            mySprite2.setPosition(randint(locationTILe, locationTILe), randint(locationTILe, locationTILe))
+            pause(5000)
+        }
+    }
 }
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (!(scoreFR == 0)) {
+        mySprite.ay = -400
+        mySprite.setVelocity(75, 0)
+        pause(1000)
+    }
+})
+scene.onOverlapTile(SpriteKind.Player, img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . c 2 c . . . . . . 
+    . . . . . . c d 2 d c . . . . . 
+    . . . b c c d 2 2 2 d c c b . . 
+    . . b d d 2 2 2 2 2 2 2 d d b . 
+    . . . b c c d 2 2 2 d c c b . . 
+    . . . . . . c d 2 d c . . . . . 
+    . . . . . . . c 2 c . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, function (sprite, location) {
+    info.changeScoreBy(1)
+})
+info.onScore(20, function () {
+    mySprite.setVelocity(200, 0)
+})
+let locationTILe = 0
+let mySprite2: Sprite = null
+let scoreFR = 0
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
     ......................................
@@ -48,6 +108,44 @@ mySprite = sprites.create(img`
     ......................................
     ......................................
     `, SpriteKind.Player)
+info.setScore(0)
+scoreFR = info.score()
+mySprite2 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . c 5 c . . . . . . 
+    . . . . . . c d 5 d c . . . . . 
+    . . . b c c d 5 5 5 d c c b . . 
+    . . b d d 5 5 5 5 5 5 5 d d b . 
+    . . . b c c d 5 5 5 d c c b . . 
+    . . . . . . c d 5 d c . . . . . 
+    . . . . . . . c 5 c . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Food)
+let mysprite3 = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . c 2 c . . . . . . 
+    . . . . . . c d 2 d c . . . . . 
+    . . . b c c d 2 2 2 d c c b . . 
+    . . b d d 2 2 2 2 2 2 2 d d b . 
+    . . . b c c d 2 2 2 d c c b . . 
+    . . . . . . c d 2 d c . . . . . 
+    . . . . . . . c 2 c . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Food)
 animation.runImageAnimation(
 mySprite,
 [img`
@@ -178,7 +276,42 @@ mySprite,
 500,
 true
 )
-mySprite.setVelocity(50, 0)
+let list = [img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . c 2 c . . . . . . 
+    . . . . . . c d 2 d c . . . . . 
+    . . . b c c d 2 2 2 d c c b . . 
+    . . b d d 2 2 2 2 2 2 2 d d b . 
+    . . . b c c d 2 2 2 d c c b . . 
+    . . . . . . c d 2 d c . . . . . 
+    . . . . . . . c 2 c . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . c 5 c . . . . . . 
+    . . . . . . c d 5 d c . . . . . 
+    . . . b c c d 5 5 5 d c c b . . 
+    . . b d d 5 5 5 5 5 5 5 d d b . 
+    . . . b c c d 5 5 5 d c c b . . 
+    . . . . . . c d 5 d c . . . . . 
+    . . . . . . . c 5 c . . . . . . 
+    . . . . . . . c d c . . . . . . 
+    . . . . . . . b d b . . . . . . 
+    . . . . . . . . b . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `]
+mySprite.setVelocity(75, 0)
 mySprite.x = 25
 mySprite.ay = 400
 scroller.setLayerImage(scroller.BackgroundLayer.Layer0, img`
@@ -468,3 +601,4 @@ scroller.scrollBackgroundWithSpeed(-10, 0, scroller.BackgroundLayer.Layer1)
 scroller.scrollBackgroundWithSpeed(-20, 0, scroller.BackgroundLayer.Layer2)
 tiles.setCurrentTilemap(tilemap`level3`)
 scene.cameraFollowSprite(mySprite)
+locationTILe = assets.tile`myTile0`
