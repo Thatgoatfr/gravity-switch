@@ -5,237 +5,410 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, l
     game.gameOver(false)
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (info.score() != 0) {
-        mySprite.ay = 400
-        mySprite.setVelocity(75, 0)
-        info.changeScoreBy(-1)
-    }
+    mySprite.ay = 500
+    mySprite.setVelocity(75, 0)
+    animation.runImageAnimation(
+    mySprite,
+    [img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        f f . c d b e e d d c d d d d c 
+        f e f . c f e e d d d c c c c c 
+        f e f . . f f e e d d d d d f . 
+        f e f . f e e e e f f f f f . . 
+        f e f f e e e e e e e f . . . . 
+        . f f e e e e f e f f e f . . . 
+        . . f e e e e f e f f e f . . . 
+        . . . f e f f b d f b d f . . . 
+        . . . f d b b d d c d d f . . . 
+        . . . f f f f f f f f f . . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . . f e e d f d d f d c . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d d d d e e d c 
+        . . . c d b e e d d c d d d d c 
+        f f . c d b e e e d d c c c c c 
+        f e f . c f f e e e d d d d f . 
+        f e f . f e e e e f f f f f f . 
+        f e f f e e e e e e e f f f f . 
+        . f f e e e e f e f d d f d d f 
+        . . f e e e e f e f b d f b d f 
+        . . f e f f f f f f f f f f f f 
+        . . f d d c f . . . . . . . . . 
+        . . f f f f . . . . . . . . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . f f e e e d d d d f . . 
+        . . . f d d e e d d d d d d c . 
+        . . . c d b e e d f d d f d c . 
+        f f . c d b e e d f d d f d d c 
+        f e f . c f e e d d d d e e d c 
+        f e f . . f e e e d c d d d d c 
+        f e f . . f f e e e d c c c f . 
+        f e f . f e e e e f f f f f . . 
+        . f f f e e e e e e e f . . . . 
+        . . f e e e e f e e f e f f . . 
+        . . f e e e f f f e e f f e f . 
+        . f b f f f f f f c d d b d d f 
+        . f d d c f . . f d d d c d d f 
+        . . f f f . . . f f f f f f f . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . f f f e e e e e f . . . 
+        . . . f d d e e e e d d d f . . 
+        . . . c d b e e e d d d d d c . 
+        . . . c d b e e d d d d d d c . 
+        . f f . c f e e d f d d f d d c 
+        f e f . . f e e d f d d f d d c 
+        f e f . . f e e d d d d e e d c 
+        f e f . . f f e e d c d d d f . 
+        f e f . f e e e e e d f f f . . 
+        . f f f e e e e e e e f . . . . 
+        . . f f b e e e e e f f . . . . 
+        . . f f d d c e e f f e f . . . 
+        . . . . f f f c d d b d d f . . 
+        . . . . . f f d d d c d d f . . 
+        . . . . . . f f f f f f f . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        . . . c d b e e d d c d d d d c 
+        . . . . c f e e e d d c c c c c 
+        . . . . . f f e e e d d d d f . 
+        . . . . f e e e e f f f f f . . 
+        f f . f e e e e e e f f . . . . 
+        f e . f e e f e e f e e f . . . 
+        f e . f e e e f e e f e e f . . 
+        f e f f e f b b f b d f d b f . 
+        f f f f e b d d f d d f d d f . 
+        . f f f f f f f f f f f f f . . 
+        `],
+    200,
+    true
+    )
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
     game.gameOver(false)
 })
 function spawnFood (list: Sprite[]) {
-    if (info.score() <= 3) {
-        tiles.placeOnRandomTile(list[0], assets.tile`myTile3`)
-        tiles.placeOnRandomTile(list[1], assets.tile`myTile3`)
-        pause(10)
+    if (info.score() < 1) {
+        tiles.placeOnRandomTile(list._pickRandom(), assets.tile`myTile3`)
+        pause(10000)
     }
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (info.score() != 0) {
-        mySprite.ay = -400
-        mySprite.setVelocity(75, 0)
-        info.changeScoreBy(-1)
+    mySprite.ay = -500
+    mySprite.setVelocity(75, 0)
+    animation.runImageAnimation(
+    mySprite,
+    [img`
+        . . . f f f f f f f f f . . . . 
+        . . . f d b b d d c d d f . . . 
+        . . . f e f f b d f b d f . . . 
+        . . f e e e e f e f f e f . . . 
+        . f f e e e e f e f f e f . . . 
+        f e f f e e e e e e e f . . . . 
+        f e f . f e e e e f f f f f . . 
+        f e f . . f f e e d d d d d f . 
+        f e f . c f e e d d d c c c c c 
+        f f . c d b e e d d c d d d d c 
+        . . . c d b e e d d d d e e d c 
+        . . . f d d e e d f d d f d c . 
+        . . . . f f e e d f d d f d c . 
+        . . . . . f e e e d d d d f . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . . . f f f f f . . . . 
+        `,img`
+        . . f f f f . . . . . . . . . . 
+        . . f d d c f . . . . . . . . . 
+        . . f e f f f f f f f f f f f f 
+        . . f e e e e f e f b d f b d f 
+        . f f e e e e f e f d d f d d f 
+        f e f f e e e e e e e f f f f . 
+        f e f . f e e e e f f f f f f . 
+        f e f . c f f e e e d d d d f . 
+        f f . c d b e e e d d c c c c c 
+        . . . c d b e e d d c d d d d c 
+        . . . f d d e e d d d d e e d c 
+        . . . . f f e e d f d d f d c . 
+        . . . . . f e e d f d d f d c . 
+        . . . . . f e e e d d d d f . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . . . f f f f f . . . . 
+        `,img`
+        . . f f f . . . f f f f f f f . 
+        . f d d c f . . f d d d c d d f 
+        . f b f f f f f f c d d b d d f 
+        . . f e e e f f f e e f f e f . 
+        . . f e e e e f e e f e f f . . 
+        . f f f e e e e e e e f . . . . 
+        f e f . f e e e e f f f f f . . 
+        f e f . . f f e e e d c c c f . 
+        f e f . . f e e e d c d d d d c 
+        f e f . c f e e d d d d e e d c 
+        f f . c d b e e d f d d f d d c 
+        . . . c d b e e d f d d f d c . 
+        . . . f d d e e d d d d d d c . 
+        . . . . f f e e e d d d d f . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . . . f f f f f . . . . 
+        `,img`
+        . . . . . . f f f f f f f . . . 
+        . . . . . f f d d d c d d f . . 
+        . . . . f f f c d d b d d f . . 
+        . . f f d d c e e f f e f . . . 
+        . . f f b e e e e e f f . . . . 
+        . f f f e e e e e e e f . . . . 
+        f e f . f e e e e e d f f f . . 
+        f e f . . f f e e d c d d d f . 
+        f e f . . f e e d d d d e e d c 
+        f e f . . f e e d f d d f d d c 
+        . f f . c f e e d f d d f d d c 
+        . . . c d b e e d d d d d d c . 
+        . . . c d b e e e d d d d d c . 
+        . . . f d d e e e e d d d f . . 
+        . . . . f f f e e e e e f . . . 
+        . . . . . . . f f f f f . . . . 
+        `,img`
+        . f f f f f f f f f f f f f . . 
+        f f f f e b d d f d d f d d f . 
+        f e f f e f b b f b d f d b f . 
+        f e . f e e e f e e f e e f . . 
+        f e . f e e f e e f e e f . . . 
+        f f . f e e e e e e f f . . . . 
+        . . . . f e e e e f f f f f . . 
+        . . . . . f f e e e d d d d f . 
+        . . . . c f e e e d d c c c c c 
+        . . . c d b e e d d c d d d d c 
+        . . . c d b e e d d d d e e d c 
+        . . . f d d e e d f d d f d c . 
+        . . . . f f e e d f d d f d c . 
+        . . . . . f e e e d d d d f . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . . . f f f f f . . . . 
+        `],
+    200,
+    true
+    )
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.deathBlock, function (sprite, otherSprite) {
+    game.gameOver(false)
+})
+info.onScore(2, function () {
+    mySprite.setVelocity(100, 0)
+})
+function spawnDeathblock (list2: Sprite[]) {
+    if (info.score() >= 1) {
+        tiles.placeOnRandomTile(list2._pickRandom(), assets.tile`myTile3`)
+        pause(200)
     }
+}
+info.onScore(3, function () {
+    mySprite.setVelocity(110, 0)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     info.changeScoreBy(1)
+    sprites.destroy(otherSprite)
     pause(2000)
-})
-info.onScore(20, function () {
-    mySprite.setVelocity(200, 0)
 })
 let mySprite: Sprite = null
 info.setScore(0)
 mySprite = sprites.create(img`
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ....8888888................8888888....
-    ..88fffffff88............88fffffff88..
-    .8fffffffffff8.........18fffffffffff8.
-    .8ff1111111ff81.......118ff1111111ff8.
-    8ff11fffff11ff81...11118ff11fffff11ff8
-    8ff1fffffff1ff811111fff8ff1fffffff1ff8
-    8ff1fff8fff1ff8ffffffff8ff1fff8fff1ff8
-    8ff1ff888ff1ff8fff111ff8ff1ff888ff1ff8
-    8ff1fff8fff1ff8ffffffff8ff1fff8fff1ff8
-    8ff1fffffff1ff811111fff8ff1fffffff1ff8
-    8ff11fffff11ff81...11118ff11fffff11ff8
-    .8ff1111111ff81.......118ff1111111ff8.
-    .8fffffffffff8.........18fffffffffff8.
-    ..88fffffff88............88fffffff88..
-    ....8888888................8888888....
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
+    . . . . . . . f f f f f . . . . 
+    . . . . . . f e e e e e f . . . 
+    . . . . . f e e e d d d d f . . 
+    . . . . f f e e d f d d f d c . 
+    . . . f d d e e d f d d f d c . 
+    . . . c d b e e d d d d e e d c 
+    f f . c d b e e d d c d d d d c 
+    f e f . c f e e d d d c c c c c 
+    f e f . . f f e e d d d d d f . 
+    f e f . f e e e e f f f f f . . 
+    f e f f e e e e e e e f . . . . 
+    . f f e e e e f e f f e f . . . 
+    . . f e e e e f e f f e f . . . 
+    . . . f e f f b d f b d f . . . 
+    . . . f d b b d d c d d f . . . 
+    . . . f f f f f f f f f . . . . 
     `, SpriteKind.Player)
 let mySprite2 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . b . . . . . . . 
-    . . . . . . . b d b . . . . . . 
-    . . . . . . . c d c . . . . . . 
-    . . . . . . . c 5 c . . . . . . 
-    . . . . . . c d 5 d c . . . . . 
-    . . . b c c d 5 5 5 d c c b . . 
-    . . b d d 5 5 5 5 5 5 5 d d b . 
-    . . . b c c d 5 5 5 d c c b . . 
-    . . . . . . c d 5 d c . . . . . 
-    . . . . . . . c 5 c . . . . . . 
-    . . . . . . . c d c . . . . . . 
-    . . . . . . . b d b . . . . . . 
-    . . . . . . . . b . . . . . . . 
-    . . . . . . . . . . . . . . . . 
+    . . . . . . . e c 7 . . . . . . 
+    . . . . e e e c 7 7 e e . . . . 
+    . . c e e e e c 7 e 2 2 e e . . 
+    . c e e e e e c 6 e e 2 2 2 e . 
+    . c e e e 2 e c c 2 4 5 4 2 e . 
+    c e e e 2 2 2 2 2 2 4 5 5 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 4 4 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
+    c e e 2 2 2 2 2 2 2 2 2 2 4 2 e 
+    . e e e 2 2 2 2 2 2 2 2 2 4 e . 
+    . 2 e e 2 2 2 2 2 2 2 2 4 2 e . 
+    . . 2 e e 2 2 2 2 2 4 4 2 e . . 
+    . . . 2 2 e e 4 4 4 2 e e . . . 
+    . . . . . 2 2 e e e e . . . . . 
     `, SpriteKind.Food)
 let mysprite3 = sprites.create(img`
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . b . . . . . . . 
-    . . . . . . . b d b . . . . . . 
-    . . . . . . . c d c . . . . . . 
-    . . . . . . . c 2 c . . . . . . 
-    . . . . . . c d 2 d c . . . . . 
-    . . . b c c d 2 2 2 d c c b . . 
-    . . b d d 2 2 2 2 2 2 2 d d b . 
-    . . . b c c d 2 2 2 d c c b . . 
-    . . . . . . c d 2 d c . . . . . 
-    . . . . . . . c 2 c . . . . . . 
-    . . . . . . . c d c . . . . . . 
-    . . . . . . . b d b . . . . . . 
-    . . . . . . . . b . . . . . . . 
-    . . . . . . . . . . . . . . . . 
+    . . . . . . . e e e e . . . . . 
+    . . . . . e e 4 5 5 5 e e . . . 
+    . . . . e 4 5 6 2 2 7 6 6 e . . 
+    . . . e 5 6 6 7 2 2 6 4 4 4 e . 
+    . . e 5 2 2 7 6 6 4 5 5 5 5 4 . 
+    . e 5 6 2 2 8 8 5 5 5 5 5 4 5 4 
+    . e 5 6 7 7 8 5 4 5 4 5 5 5 5 4 
+    e 4 5 8 6 6 5 5 5 5 5 5 4 5 5 4 
+    e 5 c e 8 5 5 5 4 5 5 5 5 5 5 4 
+    e 5 c c e 5 4 5 5 5 4 5 5 5 e . 
+    e 5 c c 5 5 5 5 5 5 5 5 4 e . . 
+    e 5 e c 5 4 5 4 5 5 5 e e . . . 
+    e 5 e e 5 5 5 5 5 4 e . . . . . 
+    4 5 4 e 5 5 5 5 e e . . . . . . 
+    . 4 5 4 5 5 4 e . . . . . . . . 
+    . . 4 4 e e e . . . . . . . . . 
     `, SpriteKind.Food)
+let sprite4 = sprites.create(img`
+    . . . . . . b b b b . . . . . . 
+    . . . . . . b 4 4 4 b . . . . . 
+    . . . . . . b b 4 4 4 b . . . . 
+    . . . . . b 4 b b b 4 4 b . . . 
+    . . . . b d 5 5 5 4 b 4 4 b . . 
+    . . . . b 3 2 3 5 5 4 e 4 4 b . 
+    . . . b d 2 2 2 5 7 5 4 e 4 4 e 
+    . . . b 5 3 2 3 5 5 5 5 e e e e 
+    . . b d 7 5 5 5 3 2 3 5 5 e e e 
+    . . b 5 5 5 5 5 2 2 2 5 5 d e e 
+    . b 3 2 3 5 7 5 3 2 3 5 d d e 4 
+    . b 2 2 2 5 5 5 5 5 5 d d e 4 . 
+    b d 3 2 d 5 5 5 d d d 4 4 . . . 
+    b 5 5 5 5 d d 4 4 4 4 . . . . . 
+    4 d d d 4 4 4 . . . . . . . . . 
+    4 4 4 4 . . . . . . . . . . . . 
+    `, SpriteKind.Food)
+let sprite5 = sprites.create(img`
+    . . . . . . c c c c c c . . . . 
+    . . . . c c b b d d d d c . . . 
+    . . . c c b b d d d d d d c . . 
+    . . c b b d b d d d d d d b c . 
+    . c b b b d b b d d d d d b c . 
+    . c b b b d d b d d d d b b c . 
+    c b c b b b d d b b b b b c c . 
+    c b c c b b b b d d d b c c c . 
+    c b b c c c c c c c c c c c c . 
+    c c b b b b b b c c b d d d b c 
+    c c c c c c c c c d d d d d d c 
+    c c c c c c c b c b d d d d d b 
+    c b b b c c c b c c b d d d c b 
+    c c b b b c c b b c c c c b b c 
+    c c c c c c c c b b b b b b c c 
+    c c c c c c c c c c c c c c c c 
+    `, SpriteKind.deathBlock)
+mySprite.sayText("I better run", 2000, true)
 animation.runImageAnimation(
 mySprite,
 [img`
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ....8888888................8888888....
-    ..88fffffff88............88fffffff88..
-    .8fffffffffff8.........18fffffffffff8.
-    .8ff1111111ff81.......118ff1111111ff8.
-    8ff11fffff11ff81...11118ff11fffff11ff8
-    8ff1fffffff1ff811111fff8ff1fffffff1ff8
-    8ff1fff8fff1ff8ffffffff8ff1fff8fff1ff8
-    8ff1ff888ff1ff8fff111ff8ff1ff888ff1ff8
-    8ff1fff8fff1ff8ffffffff8ff1fff8fff1ff8
-    8ff1fffffff1ff811111fff8ff1fffffff1ff8
-    8ff11fffff11ff81...11118ff11fffff11ff8
-    .8ff1111111ff81.......118ff1111111ff8.
-    .8fffffffffff8.........18fffffffffff8.
-    ..88fffffff88............88fffffff88..
-    ....8888888................8888888....
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
+    . . . . . . . f f f f f . . . . 
+    . . . . . . f e e e e e f . . . 
+    . . . . . f e e e d d d d f . . 
+    . . . . f f e e d f d d f d c . 
+    . . . f d d e e d f d d f d c . 
+    . . . c d b e e d d d d e e d c 
+    f f . c d b e e d d c d d d d c 
+    f e f . c f e e d d d c c c c c 
+    f e f . . f f e e d d d d d f . 
+    f e f . f e e e e f f f f f . . 
+    f e f f e e e e e e e f . . . . 
+    . f f e e e e f e f f e f . . . 
+    . . f e e e e f e f f e f . . . 
+    . . . f e f f b d f b d f . . . 
+    . . . f d b b d d c d d f . . . 
+    . . . f f f f f f f f f . . . . 
     `,img`
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ....8888888................8888888....
-    ..88fffffff88............88fffffff88..
-    .8fffffffffff8.........18fffffffffff8.
-    .8ff111111fff81.......118ff111111fff8.
-    8ff11ffff11fff81...11118ff11fffff1fff8
-    8ff1fffffff1ff811111fff8ff1fffffff1ff8
-    8ff1fff8fff1ff8ffffffff8ff1fff8fff1ff8
-    8ff1ff888ff1ff8fff111ff8ff1ff888ff1ff8
-    8ff1fff8fff1ff8ffffffff8ff1fff8fff1ff8
-    8ff1fffffff1ff811111fff8ff1fffffff1ff8
-    8ff11fffff11ff81...11118ff11fffff11ff8
-    .8ff1111111ff81.......118ff1111111ff8.
-    .8fffffffffff8.........18fffffffffff8.
-    ..88fffffff88............88fffffff88..
-    ....8888888................8888888....
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
+    . . . . . . . f f f f f . . . . 
+    . . . . . . f e e e e e f . . . 
+    . . . . . f e e e d d d d f . . 
+    . . . . . f e e d f d d f d c . 
+    . . . . f f e e d f d d f d c . 
+    . . . f d d e e d d d d e e d c 
+    . . . c d b e e d d c d d d d c 
+    f f . c d b e e e d d c c c c c 
+    f e f . c f f e e e d d d d f . 
+    f e f . f e e e e f f f f f f . 
+    f e f f e e e e e e e f f f f . 
+    . f f e e e e f e f d d f d d f 
+    . . f e e e e f e f b d f b d f 
+    . . f e f f f f f f f f f f f f 
+    . . f d d c f . . . . . . . . . 
+    . . f f f f . . . . . . . . . . 
     `,img`
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ...........................8888888....
-    ....8888888..............88fffffff88..
-    ..88fffffff88...........8fffffffffff8.
-    .8fffffffffff8..........8ff1111111ff8.
-    .8ff1111111ff81.......18ff11fffff11ff8
-    8ff11fffff11ff81...11118ff1fffffff1ff8
-    8ff1fffffff1ff811111fff8ff1fff8fff1ff8
-    8ff1fff8fff1ff8ffffffff8ff1ff888ff1ff8
-    8ff1ff888ff1ff8fff111ff8ff1fff8fff1ff8
-    8ff1fff8fff1ff8ffffffff8ff1fffffff1ff8
-    8ff1fffffff1ff811111fff8fff1fffff11ff8
-    8fff11ffff11ff81...111118fff111111ff8.
-    .8fff111111ff81.......118fffffffffff8.
-    .8fffffffffff8...........88fffffff88..
-    ..88fffffff88..............8888888....
-    ....8888888...........................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
+    . . . . . . . f f f f f . . . . 
+    . . . . . . f e e e e e f . . . 
+    . . . . f f e e e d d d d f . . 
+    . . . f d d e e d d d d d d c . 
+    . . . c d b e e d f d d f d c . 
+    f f . c d b e e d f d d f d d c 
+    f e f . c f e e d d d d e e d c 
+    f e f . . f e e e d c d d d d c 
+    f e f . . f f e e e d c c c f . 
+    f e f . f e e e e f f f f f . . 
+    . f f f e e e e e e e f . . . . 
+    . . f e e e e f e e f e f f . . 
+    . . f e e e f f f e e f f e f . 
+    . f b f f f f f f c d d b d d f 
+    . f d d c f . . f d d d c d d f 
+    . . f f f . . . f f f f f f f . 
     `,img`
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ....8888888................8888888....
-    ..88fffffff88............88fffffff88..
-    .8fffffffffff8.........18fffffffffff8.
-    .8ffff111ffff81.......118ffff111ffff8.
-    8fff111f111fff81...11118fff111f111fff8
-    8fff1fffff1fff811111fff8fff1fffff1fff8
-    8ff1ff8f8ff1ff8ffffffff8ff1ff8f8ff1ff8
-    8ff1fff8fff1ff8fff111ff8ff1fff8fff1ff8
-    8ff1ff8f8ff1ff8ffffffff8ff1ff8f8ff1ff8
-    8ff1fffffff1ff811111fff8ff1fffffff1ff8
-    8fff1fffff1fff81...11118fff1fffff1fff8
-    .8ff111f111ff81.......118ff111f111ff8.
-    .8ffff111ffff8.........18ffff111ffff8.
-    ..88fffffff88............88fffffff88..
-    ....8888888................8888888....
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
-    ......................................
+    . . . . . . . f f f f f . . . . 
+    . . . . f f f e e e e e f . . . 
+    . . . f d d e e e e d d d f . . 
+    . . . c d b e e e d d d d d c . 
+    . . . c d b e e d d d d d d c . 
+    . f f . c f e e d f d d f d d c 
+    f e f . . f e e d f d d f d d c 
+    f e f . . f e e d d d d e e d c 
+    f e f . . f f e e d c d d d f . 
+    f e f . f e e e e e d f f f . . 
+    . f f f e e e e e e e f . . . . 
+    . . f f b e e e e e f f . . . . 
+    . . f f d d c e e f f e f . . . 
+    . . . . f f f c d d b d d f . . 
+    . . . . . f f d d d c d d f . . 
+    . . . . . . f f f f f f f . . . 
+    `,img`
+    . . . . . . . f f f f f . . . . 
+    . . . . . . f e e e e e f . . . 
+    . . . . . f e e e d d d d f . . 
+    . . . . f f e e d f d d f d c . 
+    . . . f d d e e d f d d f d c . 
+    . . . c d b e e d d d d e e d c 
+    . . . c d b e e d d c d d d d c 
+    . . . . c f e e e d d c c c c c 
+    . . . . . f f e e e d d d d f . 
+    . . . . f e e e e f f f f f . . 
+    f f . f e e e e e e f f . . . . 
+    f e . f e e f e e f e e f . . . 
+    f e . f e e e f e e f e e f . . 
+    f e f f e f b b f b d f d b f . 
+    f f f f e b d d f d d f d d f . 
+    . f f f f f f f f f f f f f . . 
     `],
-500,
+200,
 true
 )
-let list = [mySprite2, mysprite3]
+let list = [mySprite2, mysprite3, sprite4]
+let list2 = [sprite5]
 mySprite.setVelocity(75, 0)
 mySprite.x = 25
 mySprite.ay = 400
@@ -528,4 +701,5 @@ tiles.setCurrentTilemap(tilemap`level3`)
 scene.cameraFollowSprite(mySprite)
 forever(function () {
     spawnFood(list)
+    spawnDeathblock(list2)
 })
