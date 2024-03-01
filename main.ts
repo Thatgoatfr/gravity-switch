@@ -105,7 +105,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, lo
     game.gameOver(false)
 })
 function spawnFood (list: Sprite[]) {
-    if (info.score() <= 6) {
+    if (info.score() <= 2) {
         tiles.placeOnRandomTile(list._pickRandom(), assets.tile`myTile3`)
         pause(100)
     }
@@ -214,7 +214,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.deathBlock, function (sprite, ot
     game.gameOver(false)
 })
 function spawnDeathblock (list2: Sprite[]) {
-    if (info.score() == 7) {
+    if (info.score() == 3) {
         tiles.placeOnRandomTile(list2._pickRandom(), assets.tile`myTile3`)
         pause(100)
     }
